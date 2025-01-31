@@ -9,7 +9,7 @@ export type IconProps = React.HTMLAttributes<SVGElement>;
 
 export function DockDemo() {
   return (
-    <div className="fixed bottom-10 right-10 z-20">
+    <div className="fixed bottom-10 left-10 z-20">
       <Dock
         direction="middle"
         className="bg-transparent opacity-80 hover:opacity-100 transform duration-300 border py-9 px-4 border-brendan-green"

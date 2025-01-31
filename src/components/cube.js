@@ -23,7 +23,7 @@ const SpinningEarth = () => {
 
     // Load Earth texture
     const textureLoader = new THREE.TextureLoader();
-    const earthTexture = textureLoader.load("/earth.png");
+    const earthTexture = textureLoader.load("/earth-huge.png");
 
     // Create UV Sphere with Earth texture
     const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
