@@ -45,8 +45,8 @@ const SpinningEarth = () => {
 
     // Animation loop
     const animate = () => {
-      earthMesh.rotation.y += 0.0015; // Adjust rotation speed
-      wireframeMesh.rotation.y += 0.0015; // Match rotation
+      earthMesh.rotation.y += 0.0007; // Adjust rotation speed
+      wireframeMesh.rotation.y += 0.0007; // Match rotation
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
