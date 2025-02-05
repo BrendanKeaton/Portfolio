@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={Manrope_Font.className} suppressHydrationWarning>
-      <body className="relative overflow-x-hidden">
+      <body className="relative overflow-x-hidden mb-64">
         <Background />
         <DockDemo />
         <div className="text-brendan-black container px-4 2xl:px-0 mx-auto flex flex-col">
