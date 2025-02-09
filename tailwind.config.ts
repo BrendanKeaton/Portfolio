@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import type { PluginAPI } from "tailwindcss/types/config";
 
 export default {
   darkMode: ["class"],
@@ -60,15 +61,35 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        manrope: ["var(--font-manrope)"],
-        urbanist: ["var(--font-urbanist)"],
+        manrope: ["var(--font-manrope)", "sans-serif"],
+        urbanist: ["var(--font-urbanist)", "sans-serif"],
+        orbit: ["var(--font-orbit)", "serif"],
       },
       letterSpacing: {
-        // Letter spacing & Font familys credit heysatya_ on Twitter.
         urbanist: "-0.02em",
         manrope: "-0.04em",
+        orbit: "-0.02em",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // Custom plugin with correct typing
+    function ({ addComponents, theme }: PluginAPI) {
+      addComponents({
+        ".font-manrope": {
+          fontFamily: theme("fontFamily.manrope"),
+          letterSpacing: theme("letterSpacing.manrope"), // Apply default letterSpacing for Manrope
+        },
+        ".font-urbanist": {
+          fontFamily: theme("fontFamily.urbanist"),
+          letterSpacing: theme("letterSpacing.urbanist"), // Apply default letterSpacing for Urbanist
+        },
+        ".font-orbit": {
+          fontFamily: theme("fontFamily.orbit"),
+          letterSpacing: theme("letterSpacing.orbit"), // Apply default letterSpacing for Orbit
+        },
+      });
+    },
+  ],
 } satisfies Config;

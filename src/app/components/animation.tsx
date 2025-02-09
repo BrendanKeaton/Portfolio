@@ -33,8 +33,8 @@ const SVGLineGlowAnimate: React.FC<SVGLineGlowAnimateProps> = ({
 
     const moveGradient = () => {
       setGradientPosition((prev) => {
-        const newY1 = prev.y1 + 1;
-        const newY2 = prev.y2 + 1;
+        const newY1 = prev.y1 + 0.6;
+        const newY2 = prev.y2 + 0.6;
 
         const distanceTravelled = newY1 - START_GRADIENT_POSITION;
         let newOpacity = 0;

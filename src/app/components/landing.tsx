@@ -15,7 +15,7 @@ export default function Landing() {
         <SVGLineGlowAnimateContainer />
         <HeroText />
       </div>
-      <motion.div className="place-self-center absolute md:right-0 h-[300px] w-[300px] md:h-[450px] md:w-[450px] 2xl:h-[700px] 2xl:w-[700px] flex opacity-90 mb-12 md:mb-0">
+      <motion.div className="place-self-center absolute md:right-0 h-[300px] w-[300px] md:h-[450px] md:w-[450px] 2xl:h-[700px] 2xl:w-[700px] flex opacity-70 mb-12 md:mb-0 ">
         <SpinningEarth />
       </motion.div>
       <p className="absolute text-lg text-gray-400 min-w-fit place-self-end right-2 md:right-32 bottom-48 md:bottom-10">
