@@ -7,7 +7,6 @@ const SpinningEarth = () => {
   useEffect(() => {
     const mount = mountRef.current;
 
-    // Scene, Camera, and Renderer setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -21,12 +20,10 @@ const SpinningEarth = () => {
     renderer.setSize(mount.clientWidth, mount.clientHeight);
     mount.appendChild(renderer.domElement);
 
-    // Load Earth texture
     const textureLoader = new THREE.TextureLoader();
     const earthTexture = textureLoader.load("/earth-huge.png");
 
-    // Create UV Sphere with Earth texture
-    const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+    const sphereGeometry = new THREE.SphereGeometry(0.9, 40, 40);
     const earthMaterial = new THREE.MeshBasicMaterial({
       map: earthTexture,
       transparent: true,
@@ -35,7 +32,6 @@ const SpinningEarth = () => {
     const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
     scene.add(earthMesh);
 
-    // Create wireframe with green glow
     const wireframeMaterial = new THREE.MeshBasicMaterial({
       color: 0x28ffbf,
       wireframe: true,
@@ -43,17 +39,38 @@ const SpinningEarth = () => {
     const wireframeMesh = new THREE.Mesh(sphereGeometry, wireframeMaterial);
     scene.add(wireframeMesh);
 
-    // Animation loop
+    const sphereGeometryMoon = new THREE.SphereGeometry(0.12, 12, 12);
+
+    const wireframeMaterialMoon = new THREE.MeshBasicMaterial({
+      color: 0xf000f8,
+      wireframe: true,
+    });
+    const wireframeMeshMoon = new THREE.Mesh(
+      sphereGeometryMoon,
+      wireframeMaterialMoon
+    );
+    scene.add(wireframeMeshMoon);
+    wireframeMeshMoon.position.set(0.9, 0.7, 0);
+
     const animate = () => {
-      earthMesh.rotation.y += 0.0007; // Adjust rotation speed
-      wireframeMesh.rotation.y += 0.0007; // Match rotation
+      earthMesh.rotation.y += 0.0007;
+      wireframeMesh.rotation.y += 0.0007;
+
+      const distance = 0.8;
+      const speed = -0.0005;
+      const time = Date.now() * speed;
+
+      const x = Math.cos(time) * distance;
+      const z = Math.sin(time) * distance;
+
+      wireframeMeshMoon.position.set(x, 0.65, z);
+
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     };
 
     animate();
 
-    // Cleanup on component unmount
     return () => {
       mount.removeChild(renderer.domElement);
     };

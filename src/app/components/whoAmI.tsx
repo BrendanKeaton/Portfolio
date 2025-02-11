@@ -34,18 +34,22 @@ export default function WhoAmI() {
       setGlitch(true);
 
       setTimeout(() => {
-        setImageSrc("/roman_head_red_2.png");
+        setImageSrc("/roman_head_red_or.png");
       }, 80);
 
       setTimeout(() => {
-        setImageSrc("/roman_head_black.png");
+        setImageSrc("/roman_head_purple_glitched2.png");
       }, 130);
+
+      setTimeout(() => {
+        setImageSrc("/roman_head_red_or.png");
+      }, 200);
 
       setTimeout(() => {
         setImageSrc("/roman_head.png");
         setGlitch(false);
       }, 250);
-    }, 10000);
+    }, 7000);
     return () => clearInterval(glitchInterval);
   }, []);
 
@@ -58,7 +62,7 @@ export default function WhoAmI() {
             y: glitch ? [0, -50, 50, -50, 50, -100, 100, 0] : 0,
             opacity: glitch ? [1, 0, 1, 0, 1, 1, 1] : 1,
           }}
-          transition={{ duration: 0.05 }}
+          transition={{ duration: 0.12 }}
         >
           <Image
             src={imageSrc}
