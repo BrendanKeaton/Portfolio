@@ -3,6 +3,8 @@ import * as THREE from "three";
 
 const SpinningEarth = () => {
   const mountRef = useRef(null);
+  const animationFrameId = useRef(null);
+  const isVisible = useRef(false);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -40,7 +42,6 @@ const SpinningEarth = () => {
     scene.add(wireframeMesh);
 
     const sphereGeometryMoon = new THREE.SphereGeometry(0.12, 12, 12);
-
     const wireframeMaterialMoon = new THREE.MeshBasicMaterial({
       color: 0xf000f8,
       wireframe: true,
@@ -53,6 +54,8 @@ const SpinningEarth = () => {
     wireframeMeshMoon.position.set(0.9, 0.7, 0);
 
     const animate = () => {
+      if (!isVisible.current) return;
+
       earthMesh.rotation.y += 0.0007;
       wireframeMesh.rotation.y += 0.0007;
 
@@ -66,13 +69,41 @@ const SpinningEarth = () => {
       wireframeMeshMoon.position.set(x, 0.65, z);
 
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    // Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            isVisible.current = true;
+            animate();
+          } else {
+            isVisible.current = false;
+            if (animationFrameId.current) {
+              cancelAnimationFrame(animationFrameId.current);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    observer.observe(mount);
 
     return () => {
+      observer.unobserve(mount);
       mount.removeChild(renderer.domElement);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      sphereGeometry.dispose();
+      earthMaterial.dispose();
+      wireframeMaterial.dispose();
+      earthTexture.dispose();
     };
   }, []);
 
