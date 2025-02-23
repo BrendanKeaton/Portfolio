@@ -2,11 +2,18 @@ import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
-const ZoomedEarth = () => {
+const ZoomedEarth = ({ updateSection }) => {
   const mountRef = useRef(null);
   const targetRotation = useRef(0);
   const currentRotation = useRef(0);
-  const modelRef = useRef(null); // Ref to store the model
+  const sat1Ref = useRef(null);
+  const planeRef = useRef(null);
+  const gateRef = useRef(null);
+  const aerosolRef = useRef(null);
+
+  if (typeof updateSection !== "function") {
+    console.error("updateSection is not a function");
+  }
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -30,19 +37,15 @@ const ZoomedEarth = () => {
     mount.appendChild(renderer.domElement);
 
     const textureLoader = new THREE.TextureLoader();
-    const earthTexture = textureLoader.load(
-      "/earth_tech_brendan.png",
-      (texture) => {
-        texture.anisotropy = Math.min(
-          renderer.capabilities.getMaxAnisotropy(),
-          8
-        );
-        texture.minFilter = THREE.LinearFilter;
-      }
-    );
+    const earthTexture = textureLoader.load("/earth.png", (texture) => {
+      texture.anisotropy = Math.min(
+        renderer.capabilities.getMaxAnisotropy(),
+        8
+      );
+      texture.minFilter = THREE.LinearFilter;
+    });
 
-    // Sphere Geometry & Materials
-    const sphereGeometry = new THREE.SphereGeometry(3, 40, 40);
+    const sphereGeometry = new THREE.SphereGeometry(3, 72, 72);
     const earthMaterial = new THREE.MeshBasicMaterial({
       map: earthTexture,
       transparent: false,
@@ -55,62 +58,133 @@ const ZoomedEarth = () => {
       transparent: false,
     });
 
-    // Meshes
     const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
     const wireframeMesh = new THREE.Mesh(sphereGeometry, wireframeMaterial);
     scene.add(earthMesh);
     scene.add(wireframeMesh);
 
-    // Load the .glb model
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load("/global_hawk.glb", (gltf) => {
+    gltfLoader.load("/Juno.glb", (gltf) => {
       const model = gltf.scene;
-
-      // Load a texture for the model
       const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load("/UVnew13.png"); // Replace with your texture path
-
-      // Traverse the model's scene graph
+      const texture = textureLoader.load("/UVnew13.png");
       model.traverse((child) => {
         if (child instanceof THREE.Mesh) {
-          // Create a new material with the texture and wireframe enabled
           const wireframeMaterial = new THREE.MeshBasicMaterial({
-            map: texture, // Apply the texture
-            wireframe: true, // Enable wireframe
-            color: 0x28ffbf, // Optional: Add a color tint
-            transparent: false, // Optional: Enable transparency
-            opacity: 1, // Optional: Set opacity
+            map: texture,
+            wireframe: true,
+            color: 0xffffff,
+            transparent: false,
+            opacity: 1,
           });
-
-          // Replace the mesh's material with the new wireframe material
           child.material = wireframeMaterial;
         }
       });
 
-      // Position, rotate, and scale the model
-      model.position.set(3, 1.5, 0);
-      model.rotation.x = Math.PI / 20;
-      model.rotation.y = -Math.PI / 30;
-      model.rotation.z = -Math.PI / 4;
-      model.scale.set(0.002, 0.002, 0.002);
+      model.position.set(0.4, 1.55, 4.9);
+      model.rotation.x = Math.PI / 3;
+      model.rotation.y = Math.PI / 2;
+      model.rotation.z = -Math.PI / 1.1;
+      model.scale.set(0.012, 0.012, 0.012);
 
-      // Store the model in a ref
-      modelRef.current = model;
+      sat1Ref.current = model;
 
-      // Add the model to the scene
       scene.add(model);
+    });
+
+    gltfLoader.load("/global_hawk.glb", (gltf) => {
+      const hawk = gltf.scene;
+      const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load("/UVnew13.png");
+      hawk.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          const wireframeMaterial = new THREE.MeshBasicMaterial({
+            map: texture,
+            wireframe: true,
+            color: 0xffffff,
+            transparent: false,
+            opacity: 1,
+          });
+          child.material = wireframeMaterial;
+        }
+      });
+
+      hawk.position.set(4.5, 1.55, 0.7);
+      hawk.rotation.x = -Math.PI / 2.6;
+      hawk.rotation.y = -Math.PI / 2;
+      hawk.rotation.z = -Math.PI / 4;
+      hawk.scale.set(0.0023, 0.0023, 0.0023);
+
+      planeRef.current = hawk;
+
+      scene.add(hawk);
+    });
+
+    gltfLoader.load("/gateway.glb", (gltf) => {
+      const gateway = gltf.scene;
+      const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load("/UVnew13.png");
+      gateway.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          const wireframeMaterial = new THREE.MeshBasicMaterial({
+            map: texture,
+            wireframe: true,
+            color: 0xffffff,
+            transparent: false,
+            opacity: 1,
+          });
+          child.material = wireframeMaterial;
+        }
+      });
+
+      gateway.position.set(-4.2, 1.55, 0.9);
+      gateway.rotation.x = -Math.PI / 2;
+      gateway.rotation.y = -Math.PI / 2;
+      gateway.rotation.z = -Math.PI / 4;
+      gateway.scale.set(0.012, 0.012, 0.012);
+
+      gateRef.current = gateway;
+
+      scene.add(gateway);
+    });
+
+    gltfLoader.load("/aerosol.glb", (gltf) => {
+      const aerosol = gltf.scene;
+      const textureLoader = new THREE.TextureLoader();
+      const texture = textureLoader.load("/UVnew13.png");
+      aerosol.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          const wireframeMaterial = new THREE.MeshBasicMaterial({
+            map: texture,
+            wireframe: true,
+            color: 0xffffff,
+            transparent: false,
+            opacity: 1,
+          });
+          child.material = wireframeMaterial;
+        }
+      });
+
+      aerosol.position.set(1.4, 1.55, -3.8);
+      aerosol.rotation.x = -Math.PI;
+      aerosol.rotation.y = -Math.PI;
+      aerosol.rotation.z = -Math.PI / 4;
+      aerosol.scale.set(0.00015, 0.00015, 0.00015);
+
+      aerosolRef.current = aerosol;
+
+      scene.add(aerosol);
     });
 
     const animate = () => {
       const delta = targetRotation.current - currentRotation.current;
-      currentRotation.current += delta * 0.03;
+      currentRotation.current += delta * 0.015;
 
-      // Update camera position based on current rotation
-      const radius = 5; // Distance from the sphere
+      const radius = 5;
       const cameraX = Math.sin(currentRotation.current) * radius;
       const cameraZ = Math.cos(currentRotation.current) * radius;
       camera.position.set(cameraX, 1.4, cameraZ);
-      camera.lookAt(new THREE.Vector3(0, 0, 0)); // Make the camera look at the center of the sphere
+      camera.lookAt(new THREE.Vector3(2, 2, 3));
 
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
@@ -118,47 +192,36 @@ const ZoomedEarth = () => {
 
     animate();
 
-    // Cleanup
     return () => {
       mount.removeChild(renderer.domElement);
     };
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
-  // Button Handlers
+  const stepSize = (2 * Math.PI) / 4;
+
   const handlePrev = () => {
-    targetRotation.current -= Math.PI / 4; // Rotate 45 degrees counterclockwise
+    targetRotation.current -= stepSize;
+    updateSection((prev) => (prev === 0 ? 3 : prev - 1));
   };
 
   const handleNext = () => {
-    targetRotation.current += Math.PI / 4; // Rotate 45 degrees clockwise
-  };
-
-  const handleSelect = () => {
-    console.log("Selected at rotation:", currentRotation.current);
+    targetRotation.current += stepSize;
+    updateSection((prev) => (prev === 3 ? 0 : prev + 1));
   };
 
   return (
     <div className="relative w-full h-full">
-      {/* Three.js Scene */}
       <div ref={mountRef} className="w-full h-full" />
-
-      {/* Overlayed Buttons */}
-      <div className="absolute inset-x-0 bottom-10 flex justify-center gap-4">
+      <div className="absolute inset-x-0 top-10 flex gap-4 w-full justify-between px-10">
         <button
           onClick={handlePrev}
-          className="px-4 py-2 bg-black text-white rounded-lg shadow-lg"
+          className="px-10 py-2 border border-1 border-brendan-green bg-brendan-green text-black font-semibold text-xs"
         >
           Prev
         </button>
         <button
-          onClick={handleSelect}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-lg"
-        >
-          Select
-        </button>
-        <button
           onClick={handleNext}
-          className="px-4 py-2 bg-black text-white rounded-lg shadow-lg"
+          className="px-10 py-2 border border-1 border-brendan-green bg-brendan-green text-black font-semibold text-xs"
         >
           Next
         </button>

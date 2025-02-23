@@ -118,7 +118,7 @@ export function HyperText({
     const retriggerInterval = setInterval(() => {
       iterationCount.current = 0;
       setIsAnimating(true);
-    }, 7000);
+    }, 5000);
 
     return () => clearInterval(retriggerInterval);
   }, []);
