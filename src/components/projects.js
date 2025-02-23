@@ -57,7 +57,6 @@ const ZoomedEarth = ({ updateSection }) => {
       side: THREE.FrontSide,
       transparent: false,
     });
-
     const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
     const wireframeMesh = new THREE.Mesh(sphereGeometry, wireframeMaterial);
     scene.add(earthMesh);
