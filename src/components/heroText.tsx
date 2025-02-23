@@ -17,7 +17,7 @@ const HeroText = () => {
         Hi,Im Brendan
       </p>
       <p
-        className={`text-white text-md md:text-lg xl:text-xl font-light place-self-end text-start`}
+        className={`text-white text-md md:text-lg 2xl:text-xl font-light place-self-end text-start`}
       >
         A fullstack dev building projects using Nextjs & Python
       </p>

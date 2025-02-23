@@ -111,7 +111,9 @@ export default function Projects() {
           go to {projects[currentSection].linkText}
         </Link>
         <p className="text-lg font-bold mt-3 text-brendan-green">OBJECTIVE:</p>
-        <p className="text-base mt-1">{projects[currentSection].description}</p>
+        <p className="text-sm 2xl:text-base mt-1">
+          {projects[currentSection].description}
+        </p>
         <div className="flex flex-wrap gap-2 mt-4">
           {projects[currentSection].tags.map((tag, index) => (
             <span
