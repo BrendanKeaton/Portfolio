@@ -1,7 +1,7 @@
 import { ChevronsRight } from "lucide-react";
 import { ExperienceProps } from "../content";
 import { TypingAnimation } from "./typingText";
-import { use, useState } from "react";
+import { useState } from "react";
 
 const ExperienceComponent: React.FC<ExperienceProps> = ({
   company,
