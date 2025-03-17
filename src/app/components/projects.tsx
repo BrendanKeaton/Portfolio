@@ -73,7 +73,7 @@ export default function Projects() {
   return !clicked ? (
     <div className="flex flex-col h-[80vh] bg-gradient-to-br from-black via-[#030303] to-black z-10 items-center justify-center rounded-xl justify-items-center">
       <div className="flex flex-col gap-y-16">
-        <p className="text-white text-lg text-center mb-5">
+        <p className="text-white text-md md:text-lg text-center mb-5">
           PROJECTS [click below to unlock]
         </p>
         <Image
@@ -82,19 +82,19 @@ export default function Projects() {
           height={104}
           alt="Floating Lock"
           onClick={() => setClicked(true)}
-          className="place-self-center justify-self-center animate-[float_4s_ease-in-out_infinite] filter hover:cursor-pointer"
+          className="place-self-center justify-self-center animate-[float_4s_ease-in-out_infinite] filter hover:cursor-pointer max-w-[20vw]"
         />
         <Image
           src="/hand2.png"
           width={556}
           height={208}
           alt="Floating Hand"
-          className="place-self-center justify-self-center filter drop-shadow-[0_0_8px_rgba(37,225,169,0.8)] opacity-70 ml-12"
+          className="place-self-center justify-self-center filter drop-shadow-[0_0_8px_rgba(37,225,169,0.8)] opacity-70 ml-12 max-w-[60vw]"
         />
       </div>
     </div>
   ) : (
-    <div className="flex flex-col md:flex-row justify-between h-[80vh] bg-gradient-to-br from-black via-[#030303] to-black z-10 rounded-xl justify-items-center">
+    <div className="flex flex-col md:flex-row justify-between h-[200vh] md:h-[80vh] bg-gradient-to-br from-black via-[#030303] to-black z-10 rounded-xl justify-items-center">
       <div className="flex text-white w-full md:w-1/3 px-6 py-3 flex-col gap-y-[1px] mt-2">
         <div className="text-brendan-green text-lg md:text-2xl max-h-fit">
           <p className="w-full text-end mb-2 font-bold ">
@@ -111,14 +111,14 @@ export default function Projects() {
           go to {projects[currentSection].linkText}
         </Link>
         <p className="text-lg font-bold mt-3 text-brendan-green">OBJECTIVE:</p>
-        <p className="text-sm 2xl:text-base mt-1">
+        <p className="text-xs md:text-sm 2xl:text-base mt-1">
           {projects[currentSection].description}
         </p>
         <div className="flex flex-wrap gap-2 mt-4">
           {projects[currentSection].tags.map((tag, index) => (
             <span
               key={index}
-              className="bg-brendan-green text-black py-2 px-3 text-sm"
+              className="bg-brendan-green text-black py-1 px-2 md:py-2 md:px-3 text-xs md:text-sm"
             >
               {tag}
             </span>
