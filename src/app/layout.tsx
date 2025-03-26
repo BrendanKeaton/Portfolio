@@ -1,6 +1,7 @@
 import Background from "./components/background";
 import { Orbit_Font } from "../../public/fonts";
 import { DockDemo } from "./components/dock";
+import Popup from "./components/popup";
 import "./globals.css";
 export const metadata = {
   title: "Brendan Keaton",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="relative mb-64">
         <Background />
         <DockDemo />
+        <Popup />
         <div className="text-brendan-black container px-4 2xl:px-0 mx-auto flex flex-col">
           {children}
         </div>

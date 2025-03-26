@@ -38,6 +38,12 @@ export function TypingAnimation({
       return () => clearTimeout(startTimeout);
     }
 
+    const fallbackTimeout = setTimeout(() => {
+      if (!started) {
+        setStarted(true);
+      }
+    }, 5000);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -54,8 +60,11 @@ export function TypingAnimation({
       observer.observe(elementRef.current);
     }
 
-    return () => observer.disconnect();
-  }, [delay, startOnView]);
+    return () => {
+      clearTimeout(fallbackTimeout);
+      observer.disconnect();
+    };
+  }, [delay, started, startOnView]);
 
   useEffect(() => {
     if (!started) return;
