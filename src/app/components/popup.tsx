@@ -16,8 +16,9 @@ export default function Popup() {
       }`}
     >
       <p className="text-white md:pr-2 text-xs md:text-base">
-        For the best experience, enable "Use hardware acceleration when
-        available" in Chrome settings. Experience may vary on smaller devices.
+        For the best experience, enable &quot;Use hardware acceleration when
+        available&quot; in Chrome settings. Experience may vary on smaller
+        devices.
       </p>
       <X
         className="flex hover:cursor-pointer min-w-fit"

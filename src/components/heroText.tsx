@@ -14,7 +14,7 @@ const HeroText = () => {
       <p
         className={`text-white text-[28px] lg:text-[54px] xl:text-[80px] font-semibold leading-none text-start items-start w-full font-orbit mb-1`}
       >
-        Hi! I'm Brendan
+        Hi! I&apos;m Brendan
       </p>
       <p
         className={`text-white text-sm lg:text-base 2xl:text-xl font-light place-self-end text-start`}
