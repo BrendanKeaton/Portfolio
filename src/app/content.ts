@@ -9,6 +9,21 @@ export interface ExperienceProps {
 
 export const experienceContent: ExperienceProps[] = [
   {
+    company: "CarMax",
+    role: "Cyber Security Engineer",
+    technologies: [
+      "Ping Federate",
+      "Sailpoint",
+      "Typescript",
+      "Powershell",
+      "CyberArk",
+      "Azure",
+    ],
+    start: "JUN2025",
+    end: "PRESENT",
+    location: "Remote",
+  },
+  {
     company: "Scope Labs",
     role: "Fullstack Developer",
     technologies: [
@@ -22,7 +37,7 @@ export const experienceContent: ExperienceProps[] = [
       "Vercel",
     ],
     start: "JAN2025",
-    end: "PRESENT",
+    end: "MAY2025",
     location: "Remote",
   },
   {
