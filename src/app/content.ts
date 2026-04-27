@@ -20,7 +20,7 @@ export const experienceContent: ExperienceProps[] = [
       "Azure",
     ],
     start: "JUN2025",
-    end: "PRESENT",
+    end: "APR2026",
     location: "Remote",
   },
   {
