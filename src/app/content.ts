@@ -9,6 +9,21 @@ export interface ExperienceProps {
 
 export const experienceContent: ExperienceProps[] = [
   {
+    company: "CFA Institute",
+    role: "Cyber Security Architect",
+    technologies: [
+      "Snyk",
+      "AWS",
+      "Azure",
+      "Github Actions",
+      "Terraform",
+      "Docker/Kubernetes",
+    ],
+    start: "APR2026",
+    end: "CURRENT",
+    location: "Charlottesville, VA",
+  },
+  {
     company: "CarMax",
     role: "Cyber Security Engineer",
     technologies: [
@@ -21,7 +36,7 @@ export const experienceContent: ExperienceProps[] = [
     ],
     start: "JUN2025",
     end: "APR2026",
-    location: "Remote",
+    location: "Richmond, VA",
   },
   {
     company: "Scope Labs",
